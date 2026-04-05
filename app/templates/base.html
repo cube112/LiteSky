@@ -1,35 +1,66 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='cloud-share.svg') }}" type="image/x-icon">
     <title>LiteSky | {% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_register.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
     {% block head %}{% endblock %}
 </head>
+
 <body>
     <div class="container">
-        <header>
-            <div class="title-container">
-                <h1>LiteSky</h1>
-                <button class="header-login-button">登录</button>
+        <header class="header-moudel">
+            <div class="header-moudel_title">
+                <!-- logo -->
+                <div class="logo">
+                    <h1>LiteSky</h1>
+                </div>
+                <!-- 顶部导航栏 -->
+                <nav class="header-moudel-nav">
+                    <button class="header-moudel_login_button">登录</button>
+                </nav>
             </div>
-
-            <nav>
-                <ul style="list-style-type: none;">
-                    <li><a href="{{ url_for('doc.doc') }}">文档</a></li>
-                </ul>
-            </nav>
         </header>
 
         <!-- 隐藏的登录弹窗，通过js控制是否可见 -->
-        <div class="login-register is-hidden">
-            <form class="login-form" method="POST" action="{{ url_for('index.login') }}">
+        <div class="auth-moudel is-hidden">
+            <!-- 关闭登录弹窗按钮 -->
+            <button class="auth-moudel_close_button">关闭</button>
+            <!-- 登录表单 -->
+            <form class="auth-moudel_login_form">
                 <h2>登录</h2>
-                <input type="text" name="username" placeholder="用户名" required>
-                <input type="password" name="password" placeholder="密码" required>
-                <button type="submit" class="login-button">登录</button>
+                <!-- 用户名输入 -->
+                <label class="auth-moudel_label" for="username">用户名</label>
+                <input class="auth-moudel_input" type="text" id="username" name="username" required>
+                <!-- 密码输入 -->
+                <label class="auth-moudel_label" for="password">密码</label>
+                <input class="auth-moudel_input" type="password" id="password" name="password" required>
+                <!-- 登录和注册 -->
+                <button type="button" class="auth-moudel_login_button">登录</button>
+                <button type="button" class="auth-moudel_switch_button">没有账号？</button>
+            </form>
+
+            <!-- 注册表单 -->
+            <form class="auth-moudel_register_form is-hidden">
+                <h2>注册</h2>
+                <!-- 用户名输入 -->
+                <label class="auth-moudel_label" for="register-username">用户名</label>
+                <input class="auth-moudel_input" type="text" id="register-username" name="username" placeholder="用户名" required>
+                <!-- 邮箱输入 -->
+                <label class="auth-moudel_label" for="register-email">邮箱</label>
+                <input class="auth-moudel_input" type="email" id="register-email" name="email" placeholder="邮箱" required>
+                <!-- 密码输入 -->
+                <label class="auth-moudel_label" for="register-password">密码</label>
+                <input class="auth-moudel_input" type="password" id="register-password" name="password" placeholder="密码" required>
+                <!-- 密码确认输入 -->
+                <label class="auth-moudel_label" for="register-confirm-password">确认密码</label>
+                <input class="auth-moudel_input" type="password" id="register-confirm-password" name="confirm-password" placeholder="确认密码" required>
+                <!-- 注册按钮 -->
+                <button type="button" class="auth-moudel_switch_button">返回登录</button>
+                <button type="button" class="auth-moudel_register_button">注册</button>
             </form>
         </div>
 
@@ -43,6 +74,7 @@
     </div>
 
     {% block scripts %}{% endblock %}
-    <script src="{{ url_for('static', filename='js/login_register.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main-switch_login_register.js') }}"></script>
 </body>
+
 </html>
