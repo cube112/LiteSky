@@ -3,16 +3,16 @@ from flask import Flask
 from .exts import db, migrate
 from .models import Files
 
-def create_app(test_config=None):
+def create_app(is_test=False):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECURE_KEY='dev',
     )
 
-    if test_config is None:
+    if not is_test:
         app.config.from_pyfile('config.py', silent=True)
     else:
-        app.config.from_mapping(test_config)
+        app.config.from_pyfile('config_test.py', silent=True)
     
     # 初始化数据库
     db.init_app(app)
