@@ -66,7 +66,10 @@ def upload():
             save_path = os.path.join(current_app.config['UPLOAD_FOLDER'], current_day)
             
             # 文件大小
-            file_size = format_file_size(file.content_length)
+            file.seek(0, os.SEEK_END)  # 移动到文件末尾
+            size = file.tell()  # 获取文件大小
+            file.seek(0)  # 重置文件指针到开头
+            file_size = format_file_size(size)
 
             # 文件上传时间和删除时间
             upload_time = datetime.now()
@@ -113,3 +116,10 @@ def upload():
         return jsonify({
             'error': '老大，你在搞什么飞机喵？'
         }), 405
+    
+
+@bp.errorhandler(413)
+def request_entity_too_large(error):
+    return jsonify({
+        'error': '老大，文件太大了，最大支持20Mb喵！'
+    }), 413
