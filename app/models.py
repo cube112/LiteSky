@@ -1,5 +1,7 @@
-from sqlalchemy import Integer, String, DateTime, Float
-from sqlalchemy.orm import Mapped, mapped_column
+from typing import List
+
+from sqlalchemy import Integer, String, DateTime, Float, Date
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .exts import db
 
@@ -13,3 +15,18 @@ class Files(db.Model):
     file_size: Mapped[str] = mapped_column(String(255), nullable=False)
     upload_time: Mapped[DateTime] = mapped_column(DateTime, nullable=False)
     delete_time: Mapped[DateTime] = mapped_column(DateTime, nullable=True)
+
+    user_id: Mapped[int] = mapped_column(Integer, db.ForeignKey('users.id'), nullable=True, index=True)
+    user: Mapped['User'] = relationship('User', back_populates='files')
+
+
+
+class User(db.Model):
+    __tablename__ = 'users'
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    username: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
+    password: Mapped[str] = mapped_column(String(255), nullable=False)
+    email: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
+    created_at: Mapped[Date] = mapped_column(Date, nullable=False)
+    
+    files: Mapped[List['Files']] = relationship('Files', back_populates='user', cascade='all, delete-orphan')

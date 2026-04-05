@@ -5,21 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='cloud-share.svg') }}" type="image/x-icon">
     <title>LiteSky | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_register.css') }}">
     {% block head %}{% endblock %}
 </head>
 <body>
     <div class="container">
         <header>
             <div class="title-container">
-
+                <h1>LiteSky</h1>
+                <button class="header-login-button">登录</button>
             </div>
 
             <nav>
-                <ul>
+                <ul style="list-style-type: none;">
                     <li><a href="{{ url_for('doc.doc') }}">文档</a></li>
                 </ul>
             </nav>
         </header>
+
+        <!-- 隐藏的登录弹窗，通过js控制是否可见 -->
+        <div class="login-register is-hidden">
+            <form class="login-form" method="POST" action="{{ url_for('index.login') }}">
+                <h2>登录</h2>
+                <input type="text" name="username" placeholder="用户名" required>
+                <input type="password" name="password" placeholder="密码" required>
+                <button type="submit" class="login-button">登录</button>
+            </form>
+        </div>
 
         <main>
             {% block content %}{% endblock %}
@@ -31,5 +43,6 @@
     </div>
 
     {% block scripts %}{% endblock %}
+    <script src="{{ url_for('static', filename='js/login_register.js') }}"></script>
 </body>
 </html>

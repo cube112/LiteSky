@@ -22,9 +22,11 @@ def create_app(is_test=False):
     from .route.upload import bp as upload_bp
     from .route.index import bp as index_bp
     from .route.doc import bp as doc_bp
+    from .route.dashboard import bp as dashboard_bp
 
     app.register_blueprint(upload_bp)
     app.register_blueprint(index_bp)
     app.register_blueprint(doc_bp)
+    app.register_blueprint(dashboard_bp)
 
     return app
