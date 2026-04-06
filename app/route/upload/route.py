@@ -5,6 +5,7 @@ from flask import jsonify
 from ...models import Files
 from ...exts import db
 
+import re
 import uuid
 import os
 from datetime import datetime, timedelta
@@ -27,6 +28,14 @@ def format_file_size(file_size):
     else:
         return f"{file_size / (1024 * 1024 * 1024):.2f} GB"
 
+# 原始文件名清洗函数，去掉路径和特殊字符
+def clean_filename(filename):
+    # 去掉路径
+    filename = os.path.basename(filename)
+    # 去掉特殊字符，只保留字母、数字、下划线和点
+    filename = re.sub(r'[^\w\.-]', '_', filename)
+    return filename
+
 @bp.route('/', methods=['GET', 'POST'])
 # 如果是GET请求，返回上传页面；如果是POST请求，处理上传的文件
 def upload():
@@ -46,7 +55,7 @@ def upload():
         
         if file and allowed_file(file.filename):
             # 原始文件名
-            origin_filename = file.filename
+            origin_filename = clean_filename(file.filename)
 
             # 存储文件名，使用UUID避免冲突
             ext = origin_filename.rsplit('.', 1)[1].lower()
@@ -57,7 +66,10 @@ def upload():
             save_path = os.path.join(current_app.config['UPLOAD_FOLDER'], current_day)
             
             # 文件大小
-            file_size = format_file_size(file.content_length)
+            file.seek(0, os.SEEK_END)  # 移动到文件末尾
+            size = file.tell()  # 获取文件大小
+            file.seek(0)  # 重置文件指针到开头
+            file_size = format_file_size(size)
 
             # 文件上传时间和删除时间
             upload_time = datetime.now()
@@ -104,3 +116,10 @@ def upload():
         return jsonify({
             'error': '老大，你在搞什么飞机喵？'
         }), 405
+    
+
+@bp.errorhandler(413)
+def request_entity_too_large(error):
+    return jsonify({
+        'error': '老大，文件太大了，最大支持20Mb喵！'
+    }), 413
