@@ -33,6 +33,21 @@ def auth_logout():
         })
 
 
+# 状态检查接口
+@bp.route('/status', methods=['GET'])
+def status():
+    if 'user_id' in session:
+        user = g.user.username
+        if user:
+            return jsonify({
+                'status': 'logged_in', 
+                'username': user
+                })
+    return jsonify({
+        'status': 'logged_out'
+        })
+
+
 # 登录页面
 @bp.route('/login')
 def login():
