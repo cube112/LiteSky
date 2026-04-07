@@ -1,9 +1,9 @@
 from flask import request, jsonify, redirect, url_for, render_template
 from flask import session, g
-from functools import wraps
 
 from ...exts import db
 from ...models import User
+from ..services.auth_check import login_required
 from . import bp
 
 @bp.route('/auth_login', methods=['POST'])
@@ -17,7 +17,7 @@ def auth_login():
         session['user_id'] = user.id
         return jsonify({
             'message': '登录成功',
-            'redirect': url_for('auth.dashboard')
+            'username': user.username
             })
     return jsonify({'message': '用户名或密码错误'}), 401
 
@@ -25,15 +25,6 @@ def auth_login():
 @bp.route('/login')
 def login():
     return render_template('login.html')
-
-
-def login_required(view):
-    @wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            return redirect(url_for('auth.login'))
-        return view(**kwargs)
-    return wrapped_view
 
 
 @bp.route('/dashboard')

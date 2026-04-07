@@ -20,7 +20,14 @@
                 </div>
                 <!-- 顶部导航栏 -->
                 <nav class="header-moudel-nav">
-                    <button class="header-moudel_login_button">登录</button>
+                    <div class="header-moudel_login">
+                        <button class="header-moudel_login_button">登录</button>
+                    </div>
+
+                    <div class="header-moudel_logout">
+                        <span class="header-moudel_username"></span>
+                        <button class="header-moudel_logout_button is-hidden">登出</button>
+                    </div>
                 </nav>
             </div>
         </header>
@@ -48,16 +55,20 @@
                 <h2>注册</h2>
                 <!-- 用户名输入 -->
                 <label class="auth-moudel_label" for="register-username">用户名</label>
-                <input class="auth-moudel_input" type="text" id="register-username" name="username" placeholder="用户名" required>
+                <input class="auth-moudel_input" type="text" id="register-username" name="username" placeholder="用户名"
+                    required>
                 <!-- 邮箱输入 -->
                 <label class="auth-moudel_label" for="register-email">邮箱</label>
-                <input class="auth-moudel_input" type="email" id="register-email" name="email" placeholder="邮箱" required>
+                <input class="auth-moudel_input" type="email" id="register-email" name="email" placeholder="邮箱"
+                    required>
                 <!-- 密码输入 -->
                 <label class="auth-moudel_label" for="register-password">密码</label>
-                <input class="auth-moudel_input" type="password" id="register-password" name="password" placeholder="密码" required>
+                <input class="auth-moudel_input" type="password" id="register-password" name="password" placeholder="密码"
+                    required>
                 <!-- 密码确认输入 -->
                 <label class="auth-moudel_label" for="register-confirm-password">确认密码</label>
-                <input class="auth-moudel_input" type="password" id="register-confirm-password" name="confirm-password" placeholder="确认密码" required>
+                <input class="auth-moudel_input" type="password" id="register-confirm-password" name="confirm-password"
+                    placeholder="确认密码" required>
                 <!-- 注册按钮 -->
                 <button type="button" class="auth-moudel_switch_button">返回登录</button>
                 <button type="button" class="auth-moudel_register_button">注册</button>
@@ -74,8 +85,7 @@
     </div>
 
     {% block scripts %}{% endblock %}
-    <script src="{{ url_for('static', filename='js/main-switch_login_register.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/base-auth.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/base/main.js') }}"></script>
 </body>
 
 </html>

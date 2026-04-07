@@ -1,4 +1,4 @@
-from flask import request, render_template
+from flask import request, render_template, g
 from flask import current_app
 from flask import jsonify
 
@@ -11,6 +11,7 @@ import os
 from datetime import datetime, timedelta
 
 from . import bp
+from ..auth.route import login_required
 
 def allowed_file(filename):
     ALLOWED_EXTENSIONS = current_app.config['ALLOWED_EXTENSIONS']
@@ -36,7 +37,8 @@ def clean_filename(filename):
     filename = re.sub(r'[^\w\.-]', '_', filename)
     return filename
 
-@bp.route('/', methods=['GET', 'POST'])
+@bp.route('/upload', methods=['GET', 'POST'])
+@login_required
 # 如果是GET请求，返回上传页面；如果是POST请求，处理上传的文件
 def upload():
     if request.method == 'POST':
@@ -75,6 +77,8 @@ def upload():
             upload_time = datetime.now()
             delete_time = (upload_time + timedelta(days=current_app.config['FILE_DELETE_DAYS']))
 
+            user_id = g.user.id if g.user else None
+
             # 准备写入数据库
             upload_file = Files(
                 origin_filename=origin_filename,
@@ -82,7 +86,8 @@ def upload():
                 save_path=save_path,
                 file_size=file_size,
                 upload_time=upload_time,
-                delete_time=delete_time
+                delete_time=delete_time,
+                user_id=user_id
             )
 
             # 保存文件到磁盘，如果保存路径不存在则创建

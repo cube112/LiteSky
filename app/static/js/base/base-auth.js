@@ -2,7 +2,7 @@ const loginButton = document.querySelector('.auth-moudel_login_button');
 const loginForm = document.querySelector('.auth-moudel_login_form');
 
 // 函数：发送登录请求
-async function sendLoginRequest(event) {
+export async function sendLoginRequest(event) {
     event.preventDefault(); // 阻止默认表单提交行为
 
     const formData = new FormData(loginForm);
@@ -21,9 +21,16 @@ async function sendLoginRequest(event) {
     });
 
     if (response.ok) {
-        // 登录成功，重定向到仪表盘
+        // 登录成功，隐藏登录按钮，显示登出按钮和用户名
         const result = await response.json();
-        window.location.href = result.redirect;
+        
+        const headerLoginButton = document.querySelector('.header-moudel_login_button');
+        const headerLogoutButton = document.querySelector('.header-moudel_logout_button');
+        const headerUsername = document.querySelector('.header-moudel_username');
+
+        headerLoginButton.classList.add('is-hidden');
+        headerLogoutButton.classList.remove('is-hidden');
+        headerUsername.textContent = result.username;
     }
 }
 
