@@ -6,6 +6,7 @@ from ...models import User
 from ..services.auth_check import login_required
 from . import bp
 
+# 登录接口
 @bp.route('/auth_login', methods=['POST'])
 def auth_login():
     request_data = request.get_json()
@@ -22,6 +23,17 @@ def auth_login():
     return jsonify({'message': '用户名或密码错误'}), 401
 
 
+# 登出接口
+@bp.route('/auth_logout', methods=['POST'])
+def auth_logout():
+    session.pop('user_id', None)
+    return jsonify({
+        'message': '登出成功',
+        'url_for': url_for('index.index')
+        })
+
+
+# 登录页面
 @bp.route('/login')
 def login():
     return render_template('login.html')

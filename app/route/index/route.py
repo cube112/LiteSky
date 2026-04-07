@@ -6,5 +6,5 @@ from ...models import User
 from . import bp
 
 @bp.route('/')
-def main():
+def index():
     return render_template('index.html')
