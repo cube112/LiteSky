@@ -1,3 +1,5 @@
+import { showElement, hideElement, toggleElement, resetForm } from './utils.js';
+
 const headerMoudelLoginButton = document.querySelector('.header-moudel_login_button');
 const authMoudelCloseButton = document.querySelector('.auth-moudel_close_button');
 const authMoudelSwitchButtonToRegister = document.getElementsByClassName('auth-moudel_switch_button')[0];
@@ -6,20 +8,29 @@ const authMoudel = document.querySelector('.auth-moudel');
 const authMoudelLoginForm = document.querySelector('.auth-moudel_login_form');
 const authMoudelRegisterForm = document.querySelector('.auth-moudel_register_form');
 
+
 headerMoudelLoginButton.addEventListener('click', () => {
-    authMoudel.classList.toggle('is-hidden');
+    toggleElement(authMoudel);
 });
 
 authMoudelCloseButton.addEventListener('click', () => {
-    authMoudel.classList.add('is-hidden');
+    hideElement(authMoudel);
+    // 重置状态
+    if (authMoudelLoginForm.classList.contains('is-hidden')) {
+        showElement(authMoudelLoginForm);
+        hideElement(authMoudelRegisterForm);
+    }
+    // 重置表单
+    resetForm(authMoudelLoginForm);
+    resetForm(authMoudelRegisterForm);
 });
 
 authMoudelSwitchButtonToRegister.addEventListener('click', () => {
-    authMoudelLoginForm.classList.toggle('is-hidden');
-    authMoudelRegisterForm.classList.toggle('is-hidden');
+    toggleElement(authMoudelLoginForm);
+    toggleElement(authMoudelRegisterForm);
 });
 
 authMoudelSwitchButtonToLogin.addEventListener('click', () => {
-    authMoudelLoginForm.classList.toggle('is-hidden');
-    authMoudelRegisterForm.classList.toggle('is-hidden');
+    toggleElement(authMoudelLoginForm);
+    toggleElement(authMoudelRegisterForm);
 });

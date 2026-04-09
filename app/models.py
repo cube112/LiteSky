@@ -15,6 +15,7 @@ class Files(db.Model):
     file_size: Mapped[str] = mapped_column(String(255), nullable=False)
     upload_time: Mapped[DateTime] = mapped_column(DateTime, nullable=False)
     delete_time: Mapped[DateTime] = mapped_column(DateTime, nullable=True)
+    download_code: Mapped[str] = mapped_column(String(255), nullable=True, unique=True)
 
     user_id: Mapped[int] = mapped_column(Integer, db.ForeignKey('users.id'), nullable=True, index=True)
     user: Mapped['User'] = relationship('User', back_populates='files')
