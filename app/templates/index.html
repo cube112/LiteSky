@@ -9,7 +9,11 @@
 <p>这是一个轻量级的云存储服务，提供简单易用的文件上传和管理功能。</p>
 <div>
     <button class="goto-upload-button">我要上传</button>
-    <button class="goto-download-button">我要下载</button>
+    <form class="download-form">
+        <label for="download_code">下载码</label>
+        <input type="text" name="download_code" id="download_code" placeholder="请输入下载码">
+        <button class="goto-download-button">我要下载</button>
+    </form>
 </div>
 {% endblock %}
 
