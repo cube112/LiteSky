@@ -1,55 +1,42 @@
 # README.MD
-Just a learning record to help me understand the Flask framework and the database.  
-只是一个学习记录，帮助我理解flask框架和数据库  
-目前只完成了简单的文件上传和保存功能。
+
+## explain（说明）
+This project can be regarded as a study log, documenting my learning process.  
+这个项目算是一个学习笔记，记录我的学习过程。  
+
+## first stage（第一个阶段）
+Simplify the project structure, without considering safety, and implement the basic functions first.The goals to be achieved in this stage:  
+简化项目结构，不考虑安全先实现基础功能，该阶段要实现的：  
+接口api
+- 注册接口
+- 登录接口
+- 登出接口
+- 上传接口
+- 下载接口
+
+页面HTML
+- 主页
+- 登录&注册页
+
+## 项目结构
+
 ```
 LiteSky
 ├─ app
 │  ├─ exts.py
 │  ├─ models.py
 │  ├─ route
-│  │  ├─ auth
-│  │  │  ├─ route.py
-│  │  │  └─ __init__.py
-│  │  ├─ download
-│  │  │  ├─ route.py
-│  │  │  └─ __init__.py
-│  │  ├─ index
-│  │  │  ├─ route.py
-│  │  │  └─ __init__.py
-│  │  ├─ services
-│  │  │  └─ auth_check.py
-│  │  └─ upload
-│  │     ├─ route.py
-│  │     └─ __init__.py
+│  │  ├─ auth.py
+│  │  └─ file.py
 │  ├─ static
 │  │  ├─ css
-│  │  │  ├─ auth
-│  │  │  │  └─ auth.css
-│  │  │  └─ base
-│  │  ├─ icon
-│  │  │  └─ cloud-share.svg
 │  │  └─ js
-│  │     ├─ base
-│  │     │  ├─ base-auth.js
-│  │     │  ├─ main.js
-│  │     │  └─ switch_contrul.js
-│  │     ├─ dowmload
-│  │     │  ├─ download.js
-│  │     │  └─ main.js
-│  │     └─ upload
-│  │        ├─ main.js
-│  │        └─ upload.js
 │  ├─ templates
 │  │  ├─ base.html
-│  │  ├─ dashboard.html
 │  │  ├─ index.html
-│  │  ├─ login.html
-│  │  └─ upload.html
+│  │  └─ login.html
 │  └─ __init__.py
 ├─ README.md
-├─ requirements.txt
-├─ run.py
-└─ run_dev.py
+└─ requirements.txt
 
 ```

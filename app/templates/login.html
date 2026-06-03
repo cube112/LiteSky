@@ -2,24 +2,3 @@
 
 
 {% block title %}登录{% endblock %}
-
-
-{% block content %}
-<form class="login_form">
-    <h2>登录</h2>
-    <!-- 用户名输入 -->
-    <label class="login-moudel_label" for="username">用户名</label>
-    <input class="login-moudel_input" type="text" id="username" name="username" required>
-    <!-- 密码输入 -->
-    <label class="login-moudel_label" for="password">密码</label>
-    <input class="login-moudel_input" type="password" id="password" name="password" required>
-    <!-- 登录和注册 -->
-    <button type="button" class="form-buttom" id="login-moudel_login_button">登录</button>
-    <button type="button" class="form-buttom" id="login-moudel_switch_button">没有账号？</button>
-</form>
-{% endblock %}
-
-
-{% block scripts %}
-<script type="module" src="{{ url_for('static', filename='js/login/main.js') }}"></script>
-{% endblock %}

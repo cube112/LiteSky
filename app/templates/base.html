@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='icon/cloud-share.svg') }}" type="image/x-icon">
+    <!-- <link rel="icon" href="{{ url_for('static', filename='icon/cloud-share.svg') }}" type="image/x-icon"> -->
     <title>LiteSky | {% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}"> -->
     {% block head %}{% endblock %}
 </head>
 
@@ -37,7 +37,7 @@
             <!-- 关闭登录弹窗按钮 -->
             <button class="auth-moudel_close_button">关闭</button>
             <!-- 登录表单 -->
-            <form class="auth-moudel_login_form">
+            <form class="auth-moudel_login_form" action="{{ url_for('auth.login') }}" method="post">
                 <h2>登录</h2>
                 <!-- 用户名输入 -->
                 <label class="auth-moudel_label" for="username">用户名</label>
@@ -46,12 +46,12 @@
                 <label class="auth-moudel_label" for="password">密码</label>
                 <input class="auth-moudel_input" type="password" id="password" name="password" required>
                 <!-- 登录和注册 -->
-                <button type="button" class="auth-moudel_login_button">登录</button>
+                <button type="submit" class="auth-moudel_login_button">登录</button>
                 <button type="button" class="auth-moudel_switch_button">没有账号？</button>
             </form>
 
             <!-- 注册表单 -->
-            <form class="auth-moudel_register_form is-hidden">
+            <form class="auth-moudel_register_form is-hidden" action="{{ url_for('auth.register') }}" method="post">
                 <h2>注册</h2>
                 <!-- 用户名输入 -->
                 <label class="auth-moudel_label" for="register-username">用户名</label>
@@ -71,7 +71,7 @@
                     placeholder="确认密码" required>
                 <!-- 注册按钮 -->
                 <button type="button" class="auth-moudel_switch_button">返回登录</button>
-                <button type="button" class="auth-moudel_register_button">注册</button>
+                <button type="submit" class="auth-moudel_register_button">注册</button>
             </form>
         </div>
 
