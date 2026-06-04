@@ -2,7 +2,7 @@ import os
 import uuid
 from datetime import datetime, timedelta
 
-from flask import Blueprint, request, current_app, g
+from flask import Blueprint, request, current_app, g, flash, send_file, render_template
 
 from ..exts import db
 from ..models import Files
@@ -57,3 +57,22 @@ def upload():
             return f"文件保存失败: {str(e)}", 500
         
         return "文件上传成功", 200
+    
+
+@bp.route('/download/<download_code>', methods=['GET'])
+def download(download_code):
+    error_message = None
+    file_record = db.session.scalar(db.select(Files).where(Files.download_code == download_code))
+    if not file_record:
+        error_message = "无效的下载码"
+    
+    
+    file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], file_record.store_filename)
+    send_file(file_path, as_attachment=True, download_name=file_record.origin_filename)
+
+    if error_message is not None:
+        flash(error_message)
+
+    render_template('download.html')
+    
+    
