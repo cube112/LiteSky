@@ -17,4 +17,9 @@ def create_app(test_config: dict | None = None) -> Flask:
     db.init_app(app)
     migrate.init_app(app, db)
 
+    # register blueprints
+    from .src.service.file_upload import file_upload_bp
+
+    app.register_blueprint(file_upload_bp)
+
     return app
