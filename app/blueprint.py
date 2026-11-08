@@ -2,8 +2,10 @@
 # Blueprint module for the application
 
 # register all blueprints
+from .src.service.file_upload import file_upload_bp
 from .src.service.identify import identify_bp
 
 
 def register_blueprints(app):
     app.register_blueprint(identify_bp)
+    app.register_blueprint(file_upload_bp)
